@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baseball Battle</title>
+    <link rel="icon" href="logo.png" type="image/x-icon">
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <script>
+        function toComputer()
+        {
+            window.location.href="singleplayer.html"
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background:url('background.avif');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        img{
+            width:55px;
+            height:55px;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            color: #fff;
+            margin-left: 10px;
+        }
+
+        .logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 3px solid #ffffff00;
+            padding: 5px;
+            background-color: white;
+        }
+
+        .navbar-icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .profile img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 30px;
+    
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .btn {
+            width: 200px;
+            margin: 10px;
+            border-radius: 5px;
+            font-size: 18px;
+            padding: 10px;
+            text-transform: uppercase;
+        }
+
+        .btn-warning {
+            background-color: #f0ad4e;
+            border-color: #f0ad4e;
+        }
+
+        .btn-primary {
+            background-color: #5bc0de;
+            border-color: #5bc0de;
+        }
+
+        .btn-danger {
+            background-color: #d9534f;
+            border-color: #d9534f;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="logo.png" alt="logo" />
+        </div>
+        <div class="navbar-brand">BaseBall Battle</div>
+    </div>
+
+    <div class="navbar-icons">
+        <span class="glyphicon glyphicon-envelope" style="font-size: 24px; margin-right: 20px;"></span>
+        <span class="glyphicon glyphicon-stats" style="font-size: 24px;"></span>
+    </div>
+    <br>
+    <br>
+    <div class="profile">
+        <img src="user's profile pic.webp" alt="User Profile">
+        <div>Krishna</div>
+    </div>
+
+    <div class="buttons">
+        <button type="button" class="btn btn-primary">Events</button>        
+        <button type="button" onclick="toComputer();" class="btn btn-primary">VS Computer</button>
+        <button type="button" class="btn btn-primary">Multiplayer</button>        
+        <button type="button" class="btn btn-primary">Guild</button>
+        <button type="button" class="btn btn-warning">How to Play</button>
+    </div>
+
+    <div class="logout-btn">
+        <button type="button" class="btn btn-danger">
+            <span class="glyphicon glyphicon-log-out"></span>
+        </button>
+    </div>
+
+    <!-- Include Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</body>
+
+</html>

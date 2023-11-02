@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="logo.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BaseBall Battle</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts - Orbitron -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background:url('background.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+            background-color: #000;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+        }
+
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+            font-size: 35px;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            margin-bottom: 20px;
+            background-color: white;
+            justify-content: center;
+        }
+
+        .profile-pic {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .stats {
+            margin-bottom: 30px;
+        }
+
+        .stats div {
+            margin-bottom: 10px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            width: 200px;
+            margin: 10px;
+            border-radius: 5px;
+            font-size: 18px;
+            padding: 10px;
+            text-transform: uppercase;
+        }
+        .btn-danger
+        {
+            width:50px !important;
+        }
+
+        .btn-success {
+            background-color: #5cb85c;
+            border-color: #5cb85c;
+        }
+
+        .btn-info {
+            background-color: #5bc0de;
+            border-color: #5bc0de;
+        }
+
+        .btn-primary {
+            background-color: #0275d8;
+            border-color: #0275d8;
+            width:95%;
+        }
+        .exit-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 10px;            
+            border: none;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .stat-item {
+            margin: 10px;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 20px;
+            color: #5bc0de;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="exit-btn">
+            <button type="button" class="btn btn-danger">
+                <span class="glyphicon glyphicon-log-out"></span>
+            </button>
+        </div>
+        <center>
+        <div class="logo">
+            
+            <img style="margin-top:5px;" width="85px" height="85px" src="logo.png" alt="Game Logo">
+        </div>
+    </center>
+        <div class="name">Krishna</div>
+        <img class="profile-pic" src="user's profile pic.webp" alt="Profile Picture">
+    </div>
+
+    <div class="stats">
+        <div class="stat-item">
+            <div class="stat-label">Matches Won</div>
+            <div class="stat-value">10</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-label">Matches Lost</div>
+            <div class="stat-value">5</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-label">Titles Gained</div>
+            <div class="stat-value">3</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-label">Current Rank</div>
+            <div class="stat-value">5th</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-label">Unique Items Won</div>
+            <div class="stat-value">8</div>
+        </div>
+    </div>
+
+    <div class="buttons">
+        <button type="button" class="btn btn-success">Friend request</button>        
+        <button type="button" class="btn btn-primary">Send a New Friend Request</button>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>

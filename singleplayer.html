@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Game Title</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts - Orbitron -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+         body {
+            font-family: 'Orbitron', sans-serif;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            text-align:center;
+        }
+
+        .main-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+
+        .item-container {
+            display: flex;
+            flex-direction: column;
+            width: 35%;
+            justify-content: space-between;
+        }
+
+        .item {
+            border: 1px solid #5bc0de;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .player-list {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            margin: 20px;
+        }
+
+        .player-item {
+            display: flex;
+            align-items: center;
+            margin: 5px;
+        }
+
+        .player-item span {
+            margin-right: 5px;
+        }
+
+        .number-container {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin: 20px;
+            position: fixed;
+            bottom: 0;
+            background-color: rgba(128, 128, 128, 0.177);
+            padding:10px;
+            border-radius:15px;
+        }
+
+        .number {
+            border: 1px solid #5bc0de;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 5px;
+            background-color: black;
+        }
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .icon {
+            width: 100px;
+            height: 100px;
+            margin: 20px;
+            border-radius:90px;
+        }
+          /* Styles for the modal */
+          .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: black;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            text-align: center;
+        }
+
+        .close {
+            color: rgb(218, 216, 216);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Baseball Battle</h1>
+    <h2>Welcome to the training grounds where you battle with our bot</h2>
+    <div id="gameStatus">
+        <div id="strikes"></div>
+        <div id="score"></div>
+        <div id="battingStatus"></div>
+    </div>
+    <div class="center-container">
+        <img src="user's profile pic.webp" alt="Human Icon" class="icon">
+        <div style="width: 20px;"></div> <!-- Space between icons -->
+        <img src="https://via.placeholder.com/100" alt="Computer Icon" class="icon">
+    </div>
+    <div class="number-container">
+        <div class="number" onclick="storeNumber(this)">1</div>
+        <div class="number" onclick="storeNumber(this)">2</div>
+        <div class="number" onclick="storeNumber(this)">3</div>
+        <div class="number" onclick="storeNumber(this)">4</div>
+        <div class="number" onclick="storeNumber(this)">5</div>
+        <div class="number" onclick="storeNumber(this)">6</div>
+        <div class="number" onclick="storeNumber(this)">7</div>
+        <div class="number" onclick="storeNumber(this)">8</div>
+        <div class="number" onclick="storeNumber(this)">9</div>
+        <div class="number" onclick="storeNumber(this)">10</div>
+        
+        
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h3>Choose Odd or Even</h3>
+                <button class="number" onclick="chooseOption('odd')">Odd</button>
+                <button class="number" onclick="chooseOption('even')">Even</button>
+            </div>
+        </div>
+    
+
+    </div>
+
+    <script>
+   let modal = document.getElementById("myModal");
+        modal.style.display = "block";
+
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        function chooseOption(option) {
+            console.log("Chosen option: " + option);
+            closeModal();
+        }
+
+            let selectedNumber = null;
+            let playerScore = 0;
+            let strikes = 0;
+            let gameStatusDiv = document.getElementById("gameStatus");
+            let strikesDiv = document.getElementById("strikes");
+            let scoreDiv = document.getElementById("score");
+            let battingStatusDiv = document.getElementById("battingStatus");
+            
+
+            function storeNumber(element) {
+                selectedNumber = parseInt(element.innerText);
+                console.log("Selected Number: " + selectedNumber);
+                playGame(selectedNumber);
+            }
+
+            function generateRandomNumber() {
+                return Math.floor(Math.random() * 10) + 1;
+            }
+
+            function playGame(selectedNumber) {
+                let randomNumber = generateRandomNumber();
+                let sum = selectedNumber + randomNumber;
+                let status = sum % 2 !== 0 ? "Batting" : "Bowling";
+
+                strikesDiv.innerText = "Strikes: " + strikes;
+                scoreDiv.innerText = "Score: " + playerScore;
+                battingStatusDiv.innerText = "Status: " + status;
+
+                
+
+                if (sum % 2 !== 0) {
+                    console.log("Player gets to bat");
+                    let playerPick = selectedNumber; // Replace with the player's chosen number
+                    let generatorPick = generateRandomNumber();
+
+                    
+                } else {
+                    console.log("Player does not get to bat");
+                }
+
+                console.log("Player Score: " + playerScore);
+                console.log("Strikes: " + strikes);
+            }
+            function loop()
+            {
+                if (status== 'Batting')
+                {
+                    let playerPick = selectedNumber; // Replace with the player's chosen number
+                    let generatorPick = generateRandomNumber();
+                    if (playerPick === generatorPick) {
+                        playerScore *= 2;
+                    } else if (Math.abs(playerPick - generatorPick) === 1) {
+                        strikes++;
+                    } else {
+                        playerScore += playerPick;
+                    }
+                }
+            }
+
+            // Example usage of the functions
+            storeNumber({ innerText: "5" }); // Example selected number
+            playGame();
+        
+    </script>
+    </body>
+    </html>

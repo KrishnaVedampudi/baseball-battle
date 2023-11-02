@@ -167,6 +167,7 @@ function signIn() {
         if (userData && userData.password === password) {
             // Allow login
             alert('Login successful');
+            window.location.href="main.html"
         } else {
             // Deny login
             alert('Invalid username or password. You can choose to get send recovery code or try again!');

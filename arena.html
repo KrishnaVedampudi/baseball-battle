@@ -21,19 +21,32 @@
             text-align:center;
         }
 
-        .main-container {
+        .container {
             display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            margin-top: 20px;
-        }
-
-        .item-container {
-            display: flex;
-            flex-direction: column;
-            width: 35%;
             justify-content: space-between;
-        }
+            margin: 20px;
+        }        
+
+    .item-container {
+        display: flex;
+        flex-direction: column;
+        width: 35%;
+        justify-content: space-between;
+    }
+
+    .item-container.left {
+        float:left;
+        margin-right: 50%;
+        
+        justify-content: flex-start;
+    }
+
+    .item-container.right {
+        float:right;
+        margin-left: 50%;
+        
+        justify-content: flex flex-end;
+    }
 
         .item {
             border: 1px solid #5bc0de;
@@ -42,6 +55,28 @@
             margin: 5px;
             cursor: pointer;
         }
+
+        .team-stats-container {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
+            height:fit-content;
+            padding:10px;
+            background-color: red;
+            border-radius:15px;
+        }
+
+        .team-stats {
+            display: flex;
+            justify-content: space-between;
+        }
+
+    .main-container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        margin-top: 20px;
+    }
 
         .player-list {
             display: flex;
@@ -72,178 +107,193 @@
             border-radius:15px;
         }
 
+      
         .number {
             border: 1px solid #5bc0de;
             border-radius: 10px;
             padding: 10px;
             margin: 5px;
-            background-color: black;
-        }
-        .center-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 50px;
         }
 
-        .icon {
-            width: 100px;
-            height: 100px;
-            margin: 20px;
-            border-radius:90px;
-        }
-          /* Styles for the modal */
-          .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-
-        .modal-content {
-            background-color: black;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            text-align: center;
-        }
-
-        .close {
-            color: rgb(218, 216, 216);
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: white;
-            text-decoration: none;
-            cursor: pointer;
-        }
+        /* Other CSS styles remain the same */
+        /* ... */
     </style>
 </head>
 
 <body>
     <h1>Baseball Battle</h1>
-    <h2>Welcome to the training grounds where you battle with our bot</h2>
-    <div id="gameStatus">
-        <div id="strikes"></div>
-        <div id="score"></div>
-        <div id="battingStatus"></div>
+    <h2>Welcome to the arena where you battle it out with your opponent(s)</h2>
+
+    
+      <div class="team-stats-container">
+      <div class="team-stats">
+        <div>
+            Team A Score: 50
+            <br>
+            Strikes Lost: 2
+            <br>
+            Players: 5
+            <br>
+            Team Name: Team A
+        </div>
+        <div>
+            Team B Score: 40
+            <br>
+            Strikes Lost: 1
+            <br>
+            Players: 4
+            <br>
+            Team Name: Team B
+        </div>
     </div>
-    <div class="center-container">
-        <img src="user's profile pic.webp" alt="Human Icon" class="icon">
-        <div style="width: 20px;"></div> <!-- Space between icons -->
-        <img src="https://via.placeholder.com/100" alt="Computer Icon" class="icon">
-    </div>
-    <div class="number-container">
-        <div class="number" onclick="storeNumber(this)">1</div>
-        <div class="number" onclick="storeNumber(this)">2</div>
-        <div class="number" onclick="storeNumber(this)">3</div>
-        <div class="number" onclick="storeNumber(this)">4</div>
-        <div class="number" onclick="storeNumber(this)">5</div>
-        <div class="number" onclick="storeNumber(this)">6</div>
-        <div class="number" onclick="storeNumber(this)">7</div>
-        <div class="number" onclick="storeNumber(this)">8</div>
-        <div class="number" onclick="storeNumber(this)">9</div>
-        <div class="number" onclick="storeNumber(this)">10</div>
-        
-        
-        <div id="myModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <h3>Choose Odd or Even</h3>
-                <button class="number" onclick="chooseOption('odd')">Odd</button>
-                <button class="number" onclick="chooseOption('even')">Even</button>
+  </div>    
+    <br>
+    <div class="main-container">
+        <div class="item-container left">
+        <span class="arrow-up" id="arrowUp" aria-hidden="true">▲</span>
+        <div class="item" onclick="selectItem(1)"><div class="player-item">
+              <span>Player 1</span>
+              <span>Score: 100</span>
+              <span>Strikes Lost: 2</span>
+              <span>⭐</span>
+          </div>
+        </div>
+        <div class="item" onclick="selectItem(2)">
+              <div class="player-item">
+                <span>Player 2</span>
+                <span>Score: 90</span>
+                <span>Strikes Lost: 1</span>
             </div>
         </div>
-    
+        <div class="item" onclick="selectItem(3)">
+          <div class="player-item">
+            <span>Player 3</span>
+            <span>Score: 85</span>
+            <span>Strikes Lost: 0</span>              
+        </div>
+        </div>
+        <div class="item" onclick="selectItem(4)">
+          <div class="player-item">
+            <span>Player 4</span>
+            <span>Score: 80</span>
+            <span>Strikes Lost: 3</span>
+        </div>
+        </div>
+        <div class="item" onclick="selectItem(5)">
+          <div class="player-item">
+            <span>Player 5</span>
+            <span>Score: 75</span>
+            <span>Strikes Lost: 1</span>
+        </div>
+        </div>
+        </div>
 
-    </div>
-
-    <script>
-   let modal = document.getElementById("myModal");
-        modal.style.display = "block";
-
-        function closeModal() {
-            modal.style.display = "none";
-        }
-
-        function chooseOption(option) {
-            console.log("Chosen option: " + option);
-            closeModal();
-        }
-
-            let selectedNumber = null;
-            let playerScore = 0;
-            let strikes = 0;
-            let gameStatusDiv = document.getElementById("gameStatus");
-            let strikesDiv = document.getElementById("strikes");
-            let scoreDiv = document.getElementById("score");
-            let battingStatusDiv = document.getElementById("battingStatus");
-            
-
-            function storeNumber(element) {
-                selectedNumber = parseInt(element.innerText);
-                console.log("Selected Number: " + selectedNumber);
-                playGame(selectedNumber);
-            }
-
-            function generateRandomNumber() {
-                return Math.floor(Math.random() * 10) + 1;
-            }
-
-            function playGame(selectedNumber) {
-                let randomNumber = generateRandomNumber();
-                let sum = selectedNumber + randomNumber;
-                let status = sum % 2 !== 0 ? "Batting" : "Bowling";
-
-                strikesDiv.innerText = "Strikes: " + strikes;
-                scoreDiv.innerText = "Score: " + playerScore;
-                battingStatusDiv.innerText = "Status: " + status;
-
-                
-
-                if (sum % 2 !== 0) {
-                    console.log("Player gets to bat");
-                    let playerPick = selectedNumber; // Replace with the player's chosen number
-                    let generatorPick = generateRandomNumber();
-
-                    
-                } else {
-                    console.log("Player does not get to bat");
-                }
-
-                console.log("Player Score: " + playerScore);
-                console.log("Strikes: " + strikes);
-            }
-            function loop()
-            {
-                if (status== 'Batting')
-                {
-                    let playerPick = selectedNumber; // Replace with the player's chosen number
-                    let generatorPick = generateRandomNumber();
-                    if (playerPick === generatorPick) {
-                        playerScore *= 2;
-                    } else if (Math.abs(playerPick - generatorPick) === 1) {
-                        strikes++;
-                    } else {
-                        playerScore += playerPick;
-                    }
-                }
-            }
-
-            // Example usage of the functions
-            storeNumber({ innerText: "5" }); // Example selected number
-            playGame();
+        <div class="item-container right">
+          <span class="arrow-up" id="arrowUp" aria-hidden="true">▲</span>
+          <div class="item" onclick="selectItem(1)"><div class="player-item">
+                <span>Player 1</span>
+                <span>Score: 100</span>
+                <span>Strikes Lost: 2</span>
+                <span>⭐</span>
+            </div>
+          </div>
+          <div class="item" onclick="selectItem(2)">
+                <div class="player-item">
+                  <span>Player 2</span>
+                  <span>Score: 90</span>
+                  <span>Strikes Lost: 1</span>
+              </div>
+          </div>
+          <div class="item" onclick="selectItem(3)">
+            <div class="player-item">
+              <span>Player 3</span>
+              <span>Score: 85</span>
+              <span>Strikes Lost: 0</span>              
+          </div>
+          </div>
+          <div class="item" onclick="selectItem(4)">
+            <div class="player-item">
+              <span>Player 4</span>
+              <span>Score: 80</span>
+              <span>Strikes Lost: 3</span>
+          </div>
+          </div>
+          <div class="item" onclick="selectItem(5)">
+            <div class="player-item">
+              <span>Player 5</span>
+              <span>Score: 75</span>
+              <span>Strikes Lost: 1</span>
+          </div>
+            <span class="arrow-down" id="arrowDown" aria-hidden="true">▼</span>
+        </div>
         
-    </script>
-    </body>
-    </html>
+    </div>
+  </div>
+  </div>   
+    <div class="number-container">
+        <div class="number">1</div>
+        <div class="number">2</div>
+        <div class="number">3</div>
+        <div class="number">4</div>
+        <div class="number">5</div>
+        <div class="number">6</div>
+        <div class="number">7</div>
+        <div class="number">8</div>
+        <div class="number">9</div>
+        <div class="number">10</div>
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
+
+
+  <!-- Include Bootstrap JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <script>
+   let selected = null;
+        let items = document.querySelectorAll('.item');
+        let arrowUp = document.getElementById('arrowUp');
+        let arrowDown = document.getElementById('arrowDown');
+
+        function selectItem(id) {
+            let index = id - 1;
+            if (selected) {
+                selected.classList.remove('selected');
+            }
+            selected = items[index];
+            selected.classList.add('selected');
+            adjustItems(index);
+        }
+
+        function adjustItems(index) {
+            items.forEach((item, i) => {
+                if (i < index - 1 || i > index + 1) {
+                    item.style.display = 'none';
+                } else {
+                    item.style.display = 'block';
+                }
+            });
+
+            // Adjust arrow visibility
+            if (index > 0) {
+                arrowUp.style.display = 'block';
+            } else {
+                arrowUp.style.display = 'none';
+            }
+
+            if (index < items.length - 1) {
+                arrowDown.style.display = 'block';
+            } else {
+                arrowDown.style.display = 'none';
+            }
+        }
+
+        // Show the first two items initially
+        items[0].style.display = 'block';
+        items[1].style.display = 'block';
+  </script>
+</body>
+</html>

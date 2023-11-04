@@ -15,6 +15,60 @@
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+.radio-container {
+      display: block;
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-size: 22px;
+    }
+
+    .radio-container input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 25px;
+      width: 25px;
+      background-color: #eee;
+      border-radius: 5px;
+    }
+
+    .radio-container:hover input ~ .checkmark {
+      background-color: #ccc;
+    }
+
+    .radio-container input:checked ~ .checkmark {
+      background-color: #2196F3;
+    }
+
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+
+    .radio-container input:checked ~ .checkmark:after {
+      display: block;
+    }
+
+    .radio-container .checkmark:after {
+      left: 9px;
+      top: 5px;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 3px 3px 0;
+      transform: rotate(45deg);
+    }
+    
         body {
             font-family: 'Orbitron', cursive;
             display: flex;
@@ -128,11 +182,24 @@
                     <button onclick="signUp()" class="btn-login">Sign Up</button>
                 </div>
                 <br>
+
                 <center>
                 <div id="recaptcha-container"></div>
+                <br>
+                <label class="radio-container">Male
+                    <input type="radio" id="option1"name="radio">
+                    <span class="checkmark"></span>
+                  </label>
+                
+                  <label class="radio-container">Female
+                    <input type="radio" id="option2" name="radio">
+                    <span class="checkmark"></span>
+                  </label>
             </center>
                 <br>
                 <a href="login.html">Already have an account? Click here to Log in</a>
+                <br>
+                <a href="https://www.flaticon.com/free-icons/avatar" title="avatar icons">Avatar icons created by Freepik - Flaticon</a>
             </div>
         </div>
     </div>
@@ -163,11 +230,42 @@
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
         const phone = document.getElementById('phone').value;
+        var option1 = document.getElementById('option1');
+        var option2 = document.getElementById('option2');
+        
+        let randomName = null;
+
+        if (option1.checked || option2.checked) {   
+            if(option1.checked) {
+                const images = [
+                "../profile-pics/man 1.png",
+                "../profile-pics/man 2.png",
+                "../profile-pics/man 3.png",
+                "../profile-pics/man 4.png",
+                "../profile-pics/panda.png",
+                "../profile-pics/rabbit.png",
+                "../profile-pics/bear.png",
+                "../profile-pics/dog.png"
+            ];
+            const randomIndex = Math.floor(Math.random() * images.length);
+            randomName = images[randomIndex];
+            } else if(option2.checked) {
+                const images = [
+                "../profile-pics/woman 1.png",
+                "../profile-pics/woman 2.png",                
+                "../profile-pics/panda.png",
+                "../profile-pics/rabbit.png",
+                "../profile-pics/bear.png",
+                "../profile-pics/dog.png"
+                ];
+                const randomIndex = Math.floor(Math.random() * images.length);
+                randomName = images[randomIndex];
+           }                 
 
         firebase.database().ref('users/' + username).once('value', (snapshot) => {
                 if (snapshot.exists()) {
                     alert('Username already taken. Please choose another username.'); // Alert if username is already taken
-                } else {
+                } {
                     const userData = {
                         "password": password,
                         "phone": phone,
@@ -180,12 +278,20 @@
                         "Friends": "",
                         "Friend request received": "",
                         "Friend request sent": "",
-                        "Matches played": ""
+                        "Matches played": "",
+                        "Best score":"",
+                        "Most strikes":"",
+                        "Profile pic": randomName
                     };
-
-    
-                    firebase.database().ref('users/' + username).set(userData);
-                    alert('Sign-up successful');
+                    firebase.database().ref('users/' + phone).once('value', (snapshot) => {
+                       if (snapshot.exists()) {
+                            alert('Phone number already taken. Please choose another phone number.'); 
+                       }
+                    else{
+                        firebase.database().ref('users/' + username).set(userData);                    
+                        alert('Sign-up successful');
+                    }
+                });
                 }
                 });
         firebase.database().ref('users/' + phone).once('value', (snapshot) => {
@@ -196,12 +302,18 @@
                         "username": username                       
                     };
     
-                    firebase.database().ref('users/' + phone).set(userData);  
+                    firebase.database().ref('users/' + phone).set(userData); 
+
                     alert('Recovery phone number stored successfully!');                  
                      // Display a pop-up for successful sign-up
                 }
             });        
-    }
+    }else{
+        alert('Select your gender');
+        }
+
+}        
+        
 
 </script>
 </html>

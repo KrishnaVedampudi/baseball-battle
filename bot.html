@@ -101,7 +101,7 @@
             top: 0;
             width: 100%;
             height: 100%;
-            overflow: auto;
+            overflow: auto;            
             background-color: rgba(0, 0, 0, 0.4);
         }
 
@@ -167,10 +167,25 @@
             </div>
         </div>
     
-
+        <div class="modal" id="resultModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Congratulations!</h4>
+                  <button type="button" class="close" data-dismiss="modal" onclick="closeoption()">&times;</button>
+                </div>
+                <div class="modal-body">
+                  <p>Please choose your next action:</p>
+                  <button type="button" class="btn btn-success" data-dismiss="modal" onclick="setStatus('Batting')">Batting</button>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="setStatus('Bowling')">Bowling</button>
+                </div>                
+              </div>
+            </div>
+          </div>
     </div>
 
     <script>
+        
         let selectedNumber = null;
         let playerScore = 0;
         let playerStrikes = 0;
@@ -185,27 +200,40 @@
         let generatorScoreDiv = document.getElementById("genscore");
         let chosen_option = null;
 
+        function setStatus(chosen_status)
+        {
+            status = chosen_status;                       
+        }
+
+        function closeoption() {
+            let modal = document.getElementById("resultModal");
+            modal.style.display = "none";
+        }
+
         function closeModal() {
             let modal = document.getElementById("myModal");
             modal.style.display = "none";
         }
         window.onload = function() {
-    var modal = document.getElementById('myModal');
-    modal.style.display = "block";
-};
+        var modal = document.getElementById('myModal');
+        modal.style.display = "block";
+        };
 
         function chooseOption(option) {
-            chosen_option = option;            
+            chosen_option = option;      
             closeModal();
         }
 
-        function storeNumber(element) {         
-   
-        selectedNumber = parseInt(element.innerText);
-        console.log("Selected Number: " + selectedNumber);
-        playGame(selectedNumber,chosen_option);
-    
-     
+        function storeNumber(element) {
+            selectedNumber = parseInt(element.innerText);
+            if(status==null){                
+                console.log("Selected Number: " + selectedNumber);
+                playGame(selectedNumber,chosen_option);
+            }  
+            else
+            {
+                loop(status, selectedNumber)
+            }
         }
         function generateRandomNumber() {
             return Math.floor(Math.random() * 10) + 1;
@@ -222,19 +250,23 @@
         {
             if(chosen_option=='odd')
             {
-                status="Batting";
+                var modal = document.getElementById('resultModal');
+                modal.style.display = "block";
             }else if(chosen_option=='even')
             {
                 status="Bowling";
+                alert("The bot chose batting, since you lost odd or even");
             }
         }else if(sum%2==0)
         {
             if(chosen_option=='even')
             {
-                status="Batting";
+                var modal = document.getElementById('resultModal');
+                modal.style.display = "block";
             }else if(chosen_option=='odd')
             {
                 status="Bowling";
+                alert("The bot chose batting, since you lost odd or even");
             }
         }
         console.log('Status changed');
@@ -253,12 +285,12 @@
 
 
         function loop(status, selectedNumber) {
-            if (playerStrikes == 3 && generatorStrikes<3) {                        
-                        status = "Batting";
-                        console.log(status);
-            }else if(playerStrikes >3 && generatorStrikes==3)
+            if (playerStrikes < 3 && generatorStrikes == 3) {                        
+                    status = "Batting";
+                    console.log(status);
+            }else if(playerStrikes == 3 && generatorStrikes <3)
             {
-                status="Bowling"
+                status="Bowling";
             }
             if (status == "Batting") {
                 console.log("game loop");
@@ -268,21 +300,32 @@
                     playerScore = playerScore+generatorPick*2;
                 } else if (Math.abs(playerPick - generatorPick) == 1) {
                     playerStrikes++;
-                    if (playerStrikes == 3 && generatorStrikes<3) {
-                        
+                    if (playerStrikes == 3 && generatorStrikes<3) {                        
                         status = "Bowling";
                         console.log(status);
                     }
-                     else if(playerStrikes ==3 && generatorStrikes==3) 
+                     else if(playerStrikes == 3 && generatorStrikes == 3) 
                      {
                         if (playerScore - generatorScore > 0) {
                             alert("Player Won!");
                             status = null;
+                            playerStrikes=0;
+                            playerScore=0;
+                            generatorStrikes=0;
+                            generatorScore=0;
+                            alert("Would you like a rematch?");
+                            playGame();
                         } else {
                             alert("Bot Won!");
                             status = null;
+                            playerStrikes=0;
+                            playerScore=0;
+                            generatorStrikes=0;
+                            generatorScore=0;
+                            alert("Would you like a rematch?");
+                            playGame();
                         }
-                    }else if (playerStrikes >= 3 && playerScore === 0) {
+                    }else if (playerStrikes == 3 && playerScore == 0) {
                         status = "Bowling";
                       }
                     
@@ -297,7 +340,7 @@
                     generatorScore = generatorScore+playerPick*2;
                 } else if (Math.abs(playerPick - generatorPick) == 1) {
                     generatorStrikes++;
-                    if (generatorStrikes>= 3 && playerStrikes<3) {
+                    if (generatorStrikes== 3 && playerStrikes<3) {
                         status = "Batting";
                     } else if (generatorStrikes == 3 && playerStrikes==3) {
                         if (playerScore - generatorScore > 0) {
@@ -319,7 +362,7 @@
                             alert("Would you like a rematch?");
                             
                         }
-                    }else if (generatorStrikes >= 3 && generatorScore === 0) {
+                    }else if (generatorStrikes == 3 && generatorScore == 0) {
                         status = "Batting";
                       }
                 } else {

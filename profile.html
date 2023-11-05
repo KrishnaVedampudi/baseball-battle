@@ -10,6 +10,9 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts - Orbitron -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <style>
         body {
             font-family: 'Orbitron', sans-serif;
@@ -127,7 +130,7 @@
 <body>
     <div class="header">
         <div class="exit-btn">
-            <button type="button" class="btn btn-danger">
+            <button type="button" onclick="exit()"class="btn btn-danger">
                 <span class="glyphicon glyphicon-log-out"></span>
             </button>
         </div>
@@ -144,35 +147,35 @@
     <div class="stats">
         <div class="stat-item">
             <div class="stat-label">Matches Won</div>
-            <div class="stat-value">57</div>
+            <div id="stat-value-MW">57</div>
         </div>
         <div class="stat-item">
             <div class="stat-label">Matches Lost</div>
-            <div class="stat-value">10</div>
+            <div id="stat-value-ML">10</div>
         </div>
         <div class="stat-item">
             <div class="stat-label">Titles Gained</div>
-            <div class="stat-value">3</div>
+            <div id="stat-value-NT">3</div>
         </div>
         <div class="stat-item">
             <div class="stat-label">Best Score</div>
-            <div class="stat-value">235</div>
+            <div id="stat-value-BS">235</div>
         </div>
         <div class="stat-item">
             <div class="stat-label">Most strikes in one match</div>
-            <div class="stat-value">5</div>
+            <div id="stat-value-MS">5</div>
         </div>
         <div class="stat-item">
             <div class="stat-label">Matches Played</div>
-            <div class="stat-value">67</div>
+            <div id="stat-value-MP">67</div>
         </div>
         <div class="stat-item">
             <div class="stat-label">Current Rank</div>
-            <div class="stat-value">5th</div>
+            <div id="stat-value-CR">5th</div>
         </div>
         <div class="stat-item">
             <div class="stat-label">Unique Items Won</div>
-            <div class="stat-value">1</div>
+            <div id="stat-value-UT">1</div>
         </div>
 
     </div>
@@ -183,10 +186,70 @@
         <button type="button" class="btn btn-primary">Change Password</button>
         <button type="button" class="btn btn-primary">Change recovery phone number</button>
     </div>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Bootstrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+         const firebaseConfig = {
+        apiKey: "AIzaSyD-BBshNUbgt-c1qiSyVqcMLGhf0iz864g",
+        authDomain: "baseball-37e0d.firebaseapp.com",
+        projectId: "baseball-37e0d",
+        storageBucket: "baseball-37e0d.appspot.com",
+        messagingSenderId: "422995163027",
+        appId: "1:422995163027:web:4b49ffa090ca952ad55a66",
+        measurementId: "G-792QSK4ZY7"
+};
+function exit()
+{
+    window.location.href="main.html";
+}
+
+    // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();   
+         document.addEventListener("DOMContentLoaded", function() {
+        
+        if (localStorage.getItem('username') !== null) {
+            
+            const username = localStorage.getItem('username');
+            
+            
+            const usersRef = database.ref('users/' + username);
+
+            // Retrieve the data from Firebase
+            usersRef.once('value', (snapshot) => {
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();
+                    document.getElementById("name").innerText = username;
+                    document.getElementById("profile").src = userData["Profile-pic"];
+                    if (userData["Matches played"] == "")
+                    {
+                    document.getElementById("stat-value-MW").innerText = "Play a match now";
+                    document.getElementById("stat-value-ML").innerText = "Play a match now";
+                    document.getElementById("stat-value-NT").innerText = "Play a match now";
+                    document.getElementById("stat-value-BS").innerText = "Play a match now";
+                    document.getElementById("stat-value-MS").innerText = "Play a match now";
+                    document.getElementById("stat-value-MP").innerText = "Play a match now";
+                    document.getElementById("stat-value-CR").innerText = "Play a match now";
+                    document.getElementById("stat-value-UT").innerText = "Play a match now";
+                    }else
+                    {                    
+                    document.getElementById("stat-value-MW").innerText = userData["Total matches won"];
+                    document.getElementById("stat-value-ML").innerText = userData["Total matches lost"];
+                    document.getElementById("stat-value-NT").innerText = userData["Number of titles"];
+                    document.getElementById("stat-value-BS").innerText = userData["Best score"];
+                    document.getElementById("stat-value-MS").innerText = userData["Most strikes"];
+                    document.getElementById("stat-value-MP").innerText = userData["Matches played"];
+                    document.getElementById("stat-value-CR").innerText = userData["Rank"];
+                    document.getElementById("stat-value-UT").innerText = userData["Unique items"];
+                    }
+                } else {
+                    console.log("User does not exist in the database.");
+                }
+            });
+        }
+    });
+    </script>
 </body>
 
 </html>
-

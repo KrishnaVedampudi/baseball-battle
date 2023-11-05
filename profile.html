@@ -249,6 +249,16 @@ function exit()
             });
         }
     });
+    function playSoundEffect() {
+            var audio = new Audio('button-sound.mp3');
+            audio.play();
+        }
+
+        // Add event listeners to all buttons
+        var buttons = document.getElementsByTagName("button");
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].addEventListener("click", playSoundEffect);
+        }
     </script>
 </body>
 

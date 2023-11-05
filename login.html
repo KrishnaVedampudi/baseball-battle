@@ -175,6 +175,7 @@ function signIn() {
             if (enteredCode == 'send recovery code')                
             {
                 window.location.href = "main.html";       
+                localStorage.setItem('username', username);           
                                             
             }  
             else if (enteredCode == 'try again')   

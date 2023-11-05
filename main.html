@@ -16,6 +16,16 @@
         {
             window.location.href="singleplayer.html";
         }
+        function playSoundEffect() {
+            var audio = new Audio('select.mp3');
+            audio.play();
+        }
+
+        // Add event listeners to all buttons
+        var buttons = document.get;
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].addEventListener("click", playSoundEffect);
+        }
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
@@ -133,13 +143,12 @@
     </div>
 
     <div class="buttons">
-        <button type="button" onclick="toProfile();" class="btn btn-primary">Profile</button>
+        <button type="button" onclick="toProfile();" class="btn btn-primary">Profile</button>        
         <button type="button" class="btn btn-primary">Events</button>        
         <button type="button" onclick="toComputer();" class="btn btn-primary">VS Computer</button>
         <button type="button" class="btn btn-primary">Multiplayer</button>        
         <button type="button" class="btn btn-primary">Guild</button>
         <button type="button" class="btn btn-warning">How to Play</button>
-        
     </div>
 
     <div class="logout-btn">
@@ -151,10 +160,6 @@
     <!-- Include Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script>
-        function toProfile()
-{
-    window.location.href="profile.html";
-}
          const firebaseConfig = {
         apiKey: "AIzaSyD-BBshNUbgt-c1qiSyVqcMLGhf0iz864g",
         authDomain: "baseball-37e0d.firebaseapp.com",
@@ -164,6 +169,10 @@
         appId: "1:422995163027:web:4b49ffa090ca952ad55a66",
         measurementId: "G-792QSK4ZY7"
 };
+function toProfile()
+{
+    window.location.href="profile.html";
+}
 
     // Initialize Firebase
     const app = firebase.initializeApp(firebaseConfig);
@@ -192,6 +201,30 @@
                 }
             });
         } else if (localStorage.getItem('phoneNumber') !== null) {
+            const phoneNumber = localStorage.getItem('phoneNumber');
+            const usersRef = database.ref('users/' + phoneNumber);
+            usersRef.once('value', (snapshot) => {
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();                    
+                    const username = userData['username'];
+                    const userref = database.ref('users/' + username);
+                    localStorage.setItem('username', username);
+                    userref.once('value', (snapshot) => {
+                        if (snapshot.exists()) {
+                            const userData = snapshot.val();                    
+                            const profilePicture = userData['Profile-pic'];
+                            document.getElementById("profile").src=profilePicture;                                
+
+                        } else {
+                            console.log("User does not exist in the database.");
+                        }
+            });
+                                                   
+
+                } else {
+                    console.log("User does not exist in the database.");
+                }
+            });
             // Handle the case where the phoneNumber key exists in local storage
             // Your logic here
         }

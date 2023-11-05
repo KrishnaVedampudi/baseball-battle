@@ -203,7 +203,7 @@ function toProfile()
                     userref.once('value', (snapshot) => {
                         if (snapshot.exists()) {
                             const userData = snapshot.val();                    
-                            const profilePicture = userData['Profile-pic'];
+                            const profilePicture = userData['Profile pic'];
                             document.getElementById("profile").src=profilePicture;                                
 
                         } else {

@@ -133,11 +133,13 @@
     </div>
 
     <div class="buttons">
+        <button type="button" onclick="toProfile();" class="btn btn-primary">Profile</button>
         <button type="button" class="btn btn-primary">Events</button>        
         <button type="button" onclick="toComputer();" class="btn btn-primary">VS Computer</button>
         <button type="button" class="btn btn-primary">Multiplayer</button>        
         <button type="button" class="btn btn-primary">Guild</button>
         <button type="button" class="btn btn-warning">How to Play</button>
+        
     </div>
 
     <div class="logout-btn">
@@ -149,6 +151,10 @@
     <!-- Include Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script>
+        function toProfile()
+{
+    window.location.href="profile.html";
+}
          const firebaseConfig = {
         apiKey: "AIzaSyD-BBshNUbgt-c1qiSyVqcMLGhf0iz864g",
         authDomain: "baseball-37e0d.firebaseapp.com",

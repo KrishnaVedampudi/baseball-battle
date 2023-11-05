@@ -104,20 +104,23 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        .stat-item {
-            margin: 10px;
-            text-align: center;
-        }
+        .stats {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
 
-        .stat-label {
-            font-size: 20px;
-            color: #5bc0de;
-        }
+    .stat-item {
+        width: 30%;
+        margin: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
 
-        .stat-value {
-            font-size: 24px;
-            color: #fff;
-        }
+    .stat-label {
+        font-weight: bold;
+    }
     </style>
 </head>
 
@@ -134,22 +137,34 @@
             <img style="margin-top:5px;" width="85px" height="85px" src="logo.png" alt="Game Logo">
         </div>
     </center>
-        <div class="name">Krishna</div>
-        <img class="profile-pic" src="user's profile pic.webp" alt="Profile Picture">
+        <div id="name" class="name">Krishna</div>
+        <img id="profile" class="profile-pic" src="user's profile pic.webp" alt="Profile Picture">
     </div>
 
     <div class="stats">
         <div class="stat-item">
             <div class="stat-label">Matches Won</div>
-            <div class="stat-value">10</div>
+            <div class="stat-value">57</div>
         </div>
         <div class="stat-item">
             <div class="stat-label">Matches Lost</div>
-            <div class="stat-value">5</div>
+            <div class="stat-value">10</div>
         </div>
         <div class="stat-item">
             <div class="stat-label">Titles Gained</div>
             <div class="stat-value">3</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-label">Best Score</div>
+            <div class="stat-value">235</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-label">Most strikes in one match</div>
+            <div class="stat-value">5</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-label">Matches Played</div>
+            <div class="stat-value">67</div>
         </div>
         <div class="stat-item">
             <div class="stat-label">Current Rank</div>
@@ -157,13 +172,16 @@
         </div>
         <div class="stat-item">
             <div class="stat-label">Unique Items Won</div>
-            <div class="stat-value">8</div>
+            <div class="stat-value">1</div>
         </div>
+
     </div>
 
     <div class="buttons">
         <button type="button" class="btn btn-success">Friend request</button>        
         <button type="button" class="btn btn-primary">Send a New Friend Request</button>
+        <button type="button" class="btn btn-primary">Change Password</button>
+        <button type="button" class="btn btn-primary">Change recovery phone number</button>
     </div>
 
     <!-- Bootstrap JS -->
@@ -171,3 +189,4 @@
 </body>
 
 </html>
+
